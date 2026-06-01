@@ -1,17 +1,17 @@
-package com.example.sudoku6x6;
+package com.example.sudoku6x6.controller;
 
+import com.example.sudoku6x6.model.SudokuModel;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class HelloController  implements Initializable {
+public class SudokuController implements Initializable {
+
+    private SudokuModel model = new SudokuModel();
 
     @FXML
     private GridPane sudokuContainer;
@@ -21,7 +21,11 @@ public class HelloController  implements Initializable {
     @Override
     public void initialize(URL url , ResourceBundle resourceBundle) {
         createSudoku();
+        model.generateSolution();
+        model.printBoard(model.getSolution());
     }
+
+
 
     private void createSudoku() {
 
