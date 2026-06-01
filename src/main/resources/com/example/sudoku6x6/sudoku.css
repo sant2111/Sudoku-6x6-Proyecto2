@@ -1,0 +1,38 @@
+
+.sudoku-cell {
+    -fx-font-size: 20px;
+    -fx-alignment: center;
+    -fx-border-width: 0.25 0.25 0.25 0.25;
+    -fx-border-color: #000000;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+
+
+
+}
+
+.bottom-border {
+    -fx-border-width: 0.25 0.25 3 0.25;
+    -fx-border-color: #000000 #000000 #16358C #000000;
+}
+
+.right-border {
+    -fx-border-width: 0.25 3 0.25 0.25;
+    -fx-border-color: #000000 #16358C #000000 #000000;
+}
+
+.bottom-right-border {
+    -fx-border-width: 0.25 3 3 0.25;
+    -fx-border-color: #000000 #16358C #16358C #000000;
+}
+
+
+.sudoku-grid {
+    -fx-border-color: #16358C;
+    -fx-border-width: 3;
+
+}
+
+.sudoku-cell:hover {
+    -fx-background-color: #d4d4f1;
+}
