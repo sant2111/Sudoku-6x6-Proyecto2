@@ -10,11 +10,20 @@ import java.util.List;
 public class SudokuModel {
 
     private int[][] solution = new int[6][6];
+    private int[][] board = new int[6][6];
 
     public void generateSolution() {
         solution = new int[6][6];
         createSolution(solution);
 
+    }
+
+    public int[][] getBoard() {
+        return board;
+    }
+
+    public void updateBoardValue(int row, int column, int value) {
+        board[row][column] = value;
     }
 
     public int[][] getSolution() {
@@ -52,7 +61,7 @@ public class SudokuModel {
     }
 
 
-    private boolean isValid(int[][] sudoku, int row, int column, int num) {
+    public boolean isValid(int[][] sudoku, int row, int column, int num) {
 
         for (int c = 0; c < 6; c++) {
             if (sudoku[row][c] == num) return false;
