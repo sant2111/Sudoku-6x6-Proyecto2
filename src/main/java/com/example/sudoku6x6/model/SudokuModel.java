@@ -1,7 +1,5 @@
 package com.example.sudoku6x6.model;
 
-import com.example.sudoku6x6.controller.SudokuController;
-
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collections;

@@ -44,7 +44,7 @@
                <font>
                   <Font size="40.0" />
                </font></Button>
-            <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="350.0" text="Nueva Partida">
+            <Button fx:id="newMatch" mnemonicParsing="false" onAction="#newGame" prefHeight="100.0" prefWidth="350.0" text="Nueva Partida">
                <font>
                   <Font size="40.0" />
                </font></Button>

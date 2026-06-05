@@ -1,5 +1,7 @@
 package com.example.sudoku6x6.controller;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import com.example.sudoku6x6.model.SudokuModel;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -102,6 +104,28 @@ public class SudokuController implements Initializable {
                 model.updateBoardValue(r, c, value);
             }
         }
+    }
+
+    public void newGame () {
+
+        Alert newGameAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        newGameAlert.setTitle("Nueva Partida");
+        newGameAlert.setHeaderText("¿Quieres iniciar una nueva partida de Sudoku?");
+        newGameAlert.setResizable(false);
+        newGameAlert.showAndWait().ifPresent(response ->
+        {
+            if (response == ButtonType.OK) {
+
+
+            }
+
+            else {
+                newGameAlert.close();
+            }
+        });
+
+
+
     }
 }
 
