@@ -19,13 +19,13 @@ public class SudokuController implements Initializable {
     private GridPane sudokuContainer;
 
     @Override
-    public void initialize(URL url , ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         createSudoku();
-        model.generateSolution();
-        model.printBoard(model.getSolution());
+
     }
 
     private void createSudoku() {
+
 
         for (int row = 0; row < 6; row++) {
             for (int column = 0; column < 6; column++) {
@@ -71,7 +71,7 @@ public class SudokuController implements Initializable {
         sudokuContainer.getStyleClass().add("sudoku-grid");
     }
 
-    private void refreshBoardValidation () {
+    private void refreshBoardValidation() {
         for (javafx.scene.Node node : sudokuContainer.getChildren()) {
             if (node instanceof TextField && node.getStyleClass().contains("sudoku-cell")) {
                 TextField cell = (TextField) node;
@@ -106,7 +106,7 @@ public class SudokuController implements Initializable {
         }
     }
 
-    public void newGame () {
+    public void newGame() {
 
         Alert newGameAlert = new Alert(Alert.AlertType.CONFIRMATION);
         newGameAlert.setTitle("Nueva Partida");
@@ -115,21 +115,44 @@ public class SudokuController implements Initializable {
         newGameAlert.showAndWait().ifPresent(response ->
         {
             if (response == ButtonType.OK) {
+                model.generateSolution();
+                model.printBoard(model.getSolution());
+                model.sudokuInitialNumbers();
 
-
-            }
-
-            else {
+            } else {
                 newGameAlert.close();
             }
         });
+    }
 
+    public void updateBoard() {
 
+        for (javafx.scene.Node node : sudokuContainer.getChildren()) {
+            if (node instanceof TextField) {
+                TextField cell = (TextField) node;
+
+                int row = GridPane.getRowIndex(cell);
+                int col = GridPane.getColumnIndex(cell);
+
+                int value = model.getBoard()[row][col];
+
+                if (value != 0) {
+
+                    cell.setText(String.valueOf(value));
+                    cell.setEditable(false);
+                    cell.getStyleClass().add("fixed-cell");
+                } else {
+
+                    cell.setText("");
+                    cell.setEditable(true);
+                    cell.getStyleClass().remove("fixed-cell");
+                }
+            }
+
+        }
 
     }
 }
-
-
 
 
 

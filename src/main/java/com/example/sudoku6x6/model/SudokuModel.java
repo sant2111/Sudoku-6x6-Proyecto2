@@ -89,4 +89,33 @@ public class SudokuModel {
         }
     }
 
+    public void sudokuInitialNumbers() {
+
+        for (int Row = 0; Row < 3; Row++) {
+            for (int Col = 0; Col < 2; Col++) {
+                int startRow = Row * 2;
+                int startCol = Col * 3;
+
+                List<Integer> nums = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4, 5));
+                Collections.shuffle(nums);
+                int num1 = nums.get(0);
+                int num2 = nums.get(1);
+
+                int row1 = startRow + (num1 / 3);
+                int col1 = startCol + (num1 % 3);
+                int row2 = startRow + (num2 / 3);
+                int col2 = startCol + (num2 % 3);
+
+                board[row1][col1] = solution[row1][col1];
+                board[row2][col2] = solution[row2][col2];
+
+            }
+            }
+
+    }
+
+
+
+
+
 }
