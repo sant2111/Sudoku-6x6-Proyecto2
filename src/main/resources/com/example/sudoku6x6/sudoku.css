@@ -36,3 +36,9 @@
 .sudoku-cell:hover {
     -fx-background-color: #d4d4f1;
 }
+
+.hint-cell {
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+    -fx-background-color: #80ebf4;
+}
