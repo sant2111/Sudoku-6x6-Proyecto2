@@ -22,6 +22,11 @@ public class SudokuController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         createSudoku();
+        model.cleanBoard();
+        model.generateSolution();
+        model.printBoard(model.getSolution());
+        model.sudokuInitialNumbers();
+        updateBoard();
 
     }
 
@@ -93,7 +98,7 @@ public class SudokuController implements Initializable {
                 int value = board[r][c];
 
                 if (value == 0) {
-                    cell.setStyle("");
+                    cell.setStyle("-fx-text-fill:  black; -fx-background-color: white;");
                     continue;
                 }
 
@@ -122,6 +127,7 @@ public class SudokuController implements Initializable {
         newGameAlert.showAndWait().ifPresent(response ->
         {
             if (response == ButtonType.OK) {
+                model.cleanBoard();
                 model.generateSolution();
                 hintsUsed = 0;
                 model.printBoard(model.getSolution());
@@ -145,6 +151,9 @@ public class SudokuController implements Initializable {
                 int col = GridPane.getColumnIndex(cell) != null ? GridPane.getColumnIndex(cell) : 0;
                 int value = model.getBoard()[row][col];
 
+                cell.getStyleClass().removeAll("fixed-cell", "hint-cell");
+                cell.setStyle("");
+
                 if (value != 0) {
 
                     cell.setText(String.valueOf(value));
@@ -163,21 +172,34 @@ public class SudokuController implements Initializable {
 
     @FXML
     public void hint() {
+        if (hintsUsed >= 3) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Pista");
+            alert.setHeaderText("No se puede dar una pista");
+            alert.setContentText("Has alcanzado el límite máximo de 3 pistas por partida");
+            alert.showAndWait();
+            return;
+        }
+
         int[] hintCell = model.getHint();
 
-        if (hintCell != null && hintsUsed < 3) {
+        if (hintCell != null) {
             hintsUsed++;
 
             for (javafx.scene.Node node : sudokuContainer.getChildren()) {
                 if (node instanceof TextField) {
                     TextField cell = (TextField) node;
-                    int row = GridPane.getRowIndex(cell);
-                    int col = GridPane.getColumnIndex(cell);
+
+                    Integer rowIndex = GridPane.getRowIndex(cell);
+                    Integer colIndex = GridPane.getColumnIndex(cell);
+                    int row = rowIndex != null ? rowIndex : 0;
+                    int col = colIndex != null ? colIndex : 0;
 
                     if (row == hintCell[0] && col == hintCell[1]) {
                         cell.getStyleClass().add("hint-cell");
                         cell.setEditable(false);
                         cell.setText(String.valueOf(model.getBoard()[row][col]));
+                        refreshBoardValidation();
                         break;
                     }
                 }
@@ -186,10 +208,10 @@ public class SudokuController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Pista");
             alert.setHeaderText("No se puede dar una pista");
-            alert.setContentText("No hay pistas disponibles.");
+            alert.setContentText("El tablero está lleno o no se encontraron casillas válidas");
             alert.showAndWait();
         }
     }
 
-    }
+}
 
