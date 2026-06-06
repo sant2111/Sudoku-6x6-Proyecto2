@@ -140,6 +140,16 @@ public class SudokuModel {
         return hintCell;
     }
 
+    public boolean hasWon() {
+        for (int row = 0; row < 6; row++) {
+            for (int col = 0; col < 6; col++) {
+                if (board[row][col] == 0 || board[row][col] != solution[row][col]) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }
 
 
