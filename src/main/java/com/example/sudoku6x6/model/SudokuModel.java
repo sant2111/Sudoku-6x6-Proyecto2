@@ -97,10 +97,10 @@ public class SudokuModel {
 
     public void sudokuInitialNumbers() {
 
-        for (int Row = 0; Row < 3; Row++) {
-            for (int Col = 0; Col < 2; Col++) {
-                int startRow = Row * 2;
-                int startCol = Col * 3;
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 2; col++) {
+                int startRow = row * 2;
+                int startCol = col * 3;
 
                 List<Integer> nums = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4, 5));
                 Collections.shuffle(nums);
@@ -120,7 +120,7 @@ public class SudokuModel {
 
     }
 
-    public boolean getHint() {
+    public int[] getHint() {
         List<int[]> emptyCells = new ArrayList<>();
         for (int row = 0; row < 6; row++) {
             for (int col = 0; col < 6; col++) {
@@ -131,13 +131,13 @@ public class SudokuModel {
         }
 
         if (emptyCells.size() <= 1) {
-            return false;
+            return null;
         }
 
         Collections.shuffle(emptyCells);
         int[] hintCell = emptyCells.get(0);
         board[hintCell[0]][hintCell[1]] = solution[hintCell[0]][hintCell[1]];
-        return true;
+        return hintCell;
     }
 
 }

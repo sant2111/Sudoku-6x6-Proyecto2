@@ -73,9 +73,16 @@ public class SudokuController implements Initializable {
     }
 
     private void refreshBoardValidation() {
+        int[][] board = model.getBoard();
+
         for (javafx.scene.Node node : sudokuContainer.getChildren()) {
             if (node instanceof TextField && node.getStyleClass().contains("sudoku-cell")) {
                 TextField cell = (TextField) node;
+
+                if (cell.getStyleClass().contains("fixed-cell") || cell.getStyleClass().contains("hint-cell"))
+                {
+                    continue;
+                }
 
                 Integer column = GridPane.getColumnIndex(cell);
                 Integer row = GridPane.getRowIndex(cell);
@@ -83,29 +90,26 @@ public class SudokuController implements Initializable {
                 int r = (row != null) ? row : 0;
                 int c = (column != null) ? column : 0;
 
-                String text = cell.getText();
+                int value = board[r][c];
 
-                if (text.isEmpty()) {
-                    cell.setStyle("-fx-text-fill: black; -fx-background-color: white;");
+                if (value == 0) {
+                    cell.setStyle("");
                     continue;
                 }
 
-                int value = Integer.parseInt(text);
+                board[r][c] = 0;
+                boolean valid = model.isValid(board, r, c, value);
+                board[r][c] = value;
 
-                model.updateBoardValue(r, c, value);
-
-                model.updateBoardValue(r, c, 0);
-
-                if (model.isValid(model.getBoard(), r, c, value)) {
+                if (valid) {
                     cell.setStyle("-fx-text-fill: #1e88e5; -fx-font-weight: bold; -fx-background-color: white;");
                 } else {
-                    System.out.println("Regla rota en fila " + r + ", columna " + c + "para el numero " + value);
                     cell.setStyle("-fx-text-fill: #e53935; -fx-font-weight: bold; -fx-background-color: #feebeb;");
                 }
-                model.updateBoardValue(r, c, value);
             }
         }
     }
+
 
     @FXML
 
@@ -157,26 +161,35 @@ public class SudokuController implements Initializable {
         }
     }
 
-        @FXML
+    @FXML
+    public void hint() {
+        int[] hintCell = model.getHint();
 
-        public void hint() {
+        if (hintCell != null && hintsUsed < 3) {
+            hintsUsed++;
 
+            for (javafx.scene.Node node : sudokuContainer.getChildren()) {
+                if (node instanceof TextField) {
+                    TextField cell = (TextField) node;
+                    int row = GridPane.getRowIndex(cell);
+                    int col = GridPane.getColumnIndex(cell);
 
-            if (model.getHint() == true && hintsUsed < 3) {
-                updateBoard();
-                hintsUsed++;
+                    if (row == hintCell[0] && col == hintCell[1]) {
+                        cell.getStyleClass().add("hint-cell");
+                        cell.setEditable(false);
+                        cell.setText(String.valueOf(model.getBoard()[row][col]));
+                        break;
+                    }
+                }
             }
-
-            else {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Pista");
-                alert.setHeaderText("No se puede dar una pista");
-                alert.setContentText("No hay pistas disponibles.");
-                alert.showAndWait();
-            }
-
-
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Pista");
+            alert.setHeaderText("No se puede dar una pista");
+            alert.setContentText("No hay pistas disponibles.");
+            alert.showAndWait();
         }
+    }
 
     }
 
