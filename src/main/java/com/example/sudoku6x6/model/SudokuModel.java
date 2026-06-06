@@ -1,7 +1,5 @@
 package com.example.sudoku6x6.model;
 
-import com.example.sudoku6x6.controller.SudokuController;
-
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,20 +28,20 @@ public class SudokuModel {
         return solution;
     }
 
-    private boolean createSolution(int [][] sudoku) {
-        for (int row = 0; row < 6; row ++) {
-            for(int column = 0; column < 6; column ++) {
+    private boolean createSolution(int[][] sudoku) {
+        for (int row = 0; row < 6; row++) {
+            for (int column = 0; column < 6; column++) {
 
                 if (sudoku[row][column] == 0) {
 
-                    List<Integer> numbers = new ArrayList<>(Arrays.asList(1,2,3,4,5,6));
+                    List<Integer> numbers = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6));
                     Collections.shuffle(numbers);
 
-                    for(int num : numbers) {
-                        if (isValid(sudoku,row,column,num)) {
+                    for (int num : numbers) {
+                        if (isValid(sudoku, row, column, num)) {
                             sudoku[row][column] = num;
 
-                            if(createSolution(sudoku)) {
+                            if (createSolution(sudoku)) {
                                 return true;
                             }
 
@@ -60,12 +58,18 @@ public class SudokuModel {
         return true;
     }
 
+    public void cleanBoard() {
+
+        board = new int[6][6];
+
+    }
+
 
     public boolean isValid(int[][] sudoku, int row, int column, int num) {
 
         for (int c = 0; c < 6; c++) {
             if (sudoku[row][c] == num) return false;
-            }
+        }
 
         for (int r = 0; r < 6; r++) {
             if (sudoku[r][column] == num) return false;
@@ -76,8 +80,8 @@ public class SudokuModel {
         for (int r = blockRowStart; r < blockRowStart + 2; r++) {
             for (int c = blockColumnStart; c < blockColumnStart + 3; c++) {
                 if (sudoku[r][c] == num) return false;
-                }
             }
+        }
         return true;
 
     }
@@ -91,4 +95,51 @@ public class SudokuModel {
         }
     }
 
+    public void sudokuInitialNumbers() {
+
+        for (int Row = 0; Row < 3; Row++) {
+            for (int Col = 0; Col < 2; Col++) {
+                int startRow = Row * 2;
+                int startCol = Col * 3;
+
+                List<Integer> nums = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4, 5));
+                Collections.shuffle(nums);
+                int num1 = nums.get(0);
+                int num2 = nums.get(1);
+
+                int row1 = startRow + (num1 / 3);
+                int col1 = startCol + (num1 % 3);
+                int row2 = startRow + (num2 / 3);
+                int col2 = startCol + (num2 % 3);
+
+                board[row1][col1] = solution[row1][col1];
+                board[row2][col2] = solution[row2][col2];
+
+            }
+        }
+
+    }
+
+    public boolean getHint() {
+        List<int[]> emptyCells = new ArrayList<>();
+        for (int row = 0; row < 6; row++) {
+            for (int col = 0; col < 6; col++) {
+                if (board[row][col] == 0) {
+                    emptyCells.add(new int[]{row, col});
+                }
+            }
+        }
+
+        if (emptyCells.size() <= 1) {
+            return false;
+        }
+
+        Collections.shuffle(emptyCells);
+        int[] hintCell = emptyCells.get(0);
+        board[hintCell[0]][hintCell[1]] = solution[hintCell[0]][hintCell[1]];
+        return true;
+    }
+
 }
+
+
