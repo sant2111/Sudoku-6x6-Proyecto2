@@ -113,6 +113,15 @@ public class SudokuController implements Initializable {
                 }
             }
         }
+        if(model.hasWon()) {
+            freezeBoard();
+
+            Alert winAlert = new Alert(Alert.AlertType.INFORMATION);
+            winAlert.setTitle("Victoria");
+            winAlert.setHeaderText("Felicidades, has ganado!");
+            winAlert.setContentText("Completaste el sudoku correctamente sin romper las reglas");
+            winAlert.showAndWait();
+        }
     }
 
 
@@ -210,6 +219,14 @@ public class SudokuController implements Initializable {
             alert.setHeaderText("No se puede dar una pista");
             alert.setContentText("El tablero está lleno o no se encontraron casillas válidas");
             alert.showAndWait();
+        }
+    }
+
+    private void freezeBoard() {
+        for (javafx.scene.Node node : sudokuContainer.getChildren()) {
+            if(node instanceof TextField) {
+                ((TextField) node).setEditable(false);
+            }
         }
     }
 
