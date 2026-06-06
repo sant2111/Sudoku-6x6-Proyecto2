@@ -40,11 +40,11 @@
       </GridPane>
       <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0" translateY="60.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="350.0" text="Pista">
+            <Button mnemonicParsing="false" onAction="#hint" prefHeight="100.0" prefWidth="350.0" text="Pista">
                <font>
                   <Font size="40.0" />
                </font></Button>
-            <Button fx:id="newMatch" mnemonicParsing="false" onAction="#newGame" prefHeight="100.0" prefWidth="350.0" text="Nueva Partida">
+            <Button mnemonicParsing="false" onAction="#newGame" prefHeight="100.0" prefWidth="350.0" text="Nueva Partida">
                <font>
                   <Font size="40.0" />
                </font></Button>

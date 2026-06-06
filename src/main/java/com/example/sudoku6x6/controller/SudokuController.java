@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 public class SudokuController implements Initializable {
 
     private SudokuModel model = new SudokuModel();
+    int hintsUsed = 0;
 
     @FXML
     private GridPane sudokuContainer;
@@ -106,6 +107,8 @@ public class SudokuController implements Initializable {
         }
     }
 
+    @FXML
+
     public void newGame() {
 
         Alert newGameAlert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -116,8 +119,11 @@ public class SudokuController implements Initializable {
         {
             if (response == ButtonType.OK) {
                 model.generateSolution();
+                hintsUsed = 0;
                 model.printBoard(model.getSolution());
                 model.sudokuInitialNumbers();
+                updateBoard();
+
 
             } else {
                 newGameAlert.close();
@@ -131,9 +137,8 @@ public class SudokuController implements Initializable {
             if (node instanceof TextField) {
                 TextField cell = (TextField) node;
 
-                int row = GridPane.getRowIndex(cell);
-                int col = GridPane.getColumnIndex(cell);
-
+                int row = GridPane.getRowIndex(cell) != null ? GridPane.getRowIndex(cell) : 0;
+                int col = GridPane.getColumnIndex(cell) != null ? GridPane.getColumnIndex(cell) : 0;
                 int value = model.getBoard()[row][col];
 
                 if (value != 0) {
@@ -150,9 +155,28 @@ public class SudokuController implements Initializable {
             }
 
         }
+    }
+
+        @FXML
+
+        public void hint() {
+
+
+            if (model.getHint() == true && hintsUsed < 3) {
+                updateBoard();
+                hintsUsed++;
+            }
+
+            else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Pista");
+                alert.setHeaderText("No se puede dar una pista");
+                alert.setContentText("No hay pistas disponibles.");
+                alert.showAndWait();
+            }
+
+
+        }
 
     }
-}
-
-
 
