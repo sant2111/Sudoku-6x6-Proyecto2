@@ -5,11 +5,21 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/** @author SANTIAGO BARRAGAN TRIANA
+ * @author JHONNY ALEXANDER MORENO FLORES
+ */
+
+/**
+ * Default implementation of {@link SudokuLogic} for a 6x6 Sudoku.
+ * Holds the generated solution and the player's board, and provides the
+ * operations to generate, validate, hint and check the game state.
+ */
 public class SudokuModel implements SudokuLogic {
 
     private int[][] solution = new int[6][6];
     private int[][] board = new int[6][6];
 
+    /** Generates a new complete, valid solution grid. */
     @Override
     public void generateSolution() {
         solution = new int[6][6];
@@ -17,21 +27,30 @@ public class SudokuModel implements SudokuLogic {
 
     }
 
+    /** Returns the current player's board (0 means an empty cell). */
     @Override
     public int[][] getBoard() {
         return board;
     }
 
+    /** Stores the given value in the specified cell. */
     @Override
     public void updateBoardValue(int row, int column, int value) {
         board[row][column] = value;
     }
 
+    /** Returns the generated solution grid. */
     @Override
     public int[][] getSolution() {
         return solution;
     }
 
+    /**
+     * Recursively fills the grid with a valid solution using backtracking.
+     *
+     * @param sudoku the grid being solved
+     * @return {@code true} once the grid is completely and validly filled
+     */
     private boolean createSolution(int[][] sudoku) {
         for (int row = 0; row < 6; row++) {
             for (int column = 0; column < 6; column++) {
@@ -62,6 +81,7 @@ public class SudokuModel implements SudokuLogic {
         return true;
     }
 
+    /** Clears the player's board, leaving every cell empty. */
     @Override
     public void cleanBoard() {
 
@@ -70,6 +90,7 @@ public class SudokuModel implements SudokuLogic {
     }
 
 
+    /** Checks that the number breaks no row, column or 2x3 block rule. */
     @Override
     public boolean isValid(int[][] sudoku, int row, int column, int num) {
 
@@ -92,6 +113,7 @@ public class SudokuModel implements SudokuLogic {
 
     }
 
+    /** Prints the given grid to the console. */
     @Override
     public void printBoard(int[][] board) {
         for (int row = 0; row < 6; row++) {
@@ -102,6 +124,7 @@ public class SudokuModel implements SudokuLogic {
         }
     }
 
+    /** Places two clue numbers per 2x3 block, taken from the solution. */
     @Override
     public void sudokuInitialNumbers() {
 
@@ -128,6 +151,7 @@ public class SudokuModel implements SudokuLogic {
 
     }
 
+    /** Reveals a random empty cell as a hint, or {@code null} if none can be given. */
     @Override
     public int[] getHint() {
         List<int[]> emptyCells = new ArrayList<>();
@@ -149,6 +173,7 @@ public class SudokuModel implements SudokuLogic {
         return hintCell;
     }
 
+    /** Returns {@code true} when the board fully matches the solution. */
     @Override
     public boolean hasWon() {
         for (int row = 0; row < 6; row++) {

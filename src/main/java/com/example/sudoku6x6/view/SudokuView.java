@@ -7,7 +7,22 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/** @author SANTIAGO BARRAGAN TRIANA
+ * @author JHONNY ALEXANDER MORENO FLORES
+ */
+
+/**
+ * JavaFX application that loads the FXML view and stylesheet and shows
+ * the main Sudoku window.
+ */
 public class SudokuView extends Application {
+
+    /**
+     * Loads the scene from FXML, applies the stylesheet and displays it.
+     *
+     * @param stage the primary stage provided by JavaFX
+     * @throws IOException if the FXML resource cannot be loaded
+     */
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(SudokuView.class.getResource("/com/example/sudoku6x6/sudoku-view.fxml"));
@@ -21,6 +36,12 @@ public class SudokuView extends Application {
 
     }
 
+    /**
+     * Returns the lazily-created singleton instance of the view.
+     *
+     * @return the shared {@code SudokuView} instance
+     * @throws IOException if instance creation fails
+     */
     public static SudokuView getInstance() throws IOException {
         if (SudokuViewHolder.INSTANCE == null) {
             SudokuViewHolder.INSTANCE = new SudokuView();
@@ -30,6 +51,7 @@ public class SudokuView extends Application {
 
     }
 
+    /** Holder for the lazily-initialized singleton instance. */
     private static class SudokuViewHolder {
         private static SudokuView INSTANCE = null;
     }

@@ -10,7 +10,15 @@ import javafx.scene.layout.GridPane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+/** @author SANTIAGO BARRAGAN TRIANA
+ * @author JHONNY ALEXANDER MORENO FLORES
+ */
 
+/**
+ * Controller that connects the FXML view with the {@link SudokuModel}.
+ * Builds the 6x6 grid and handles number input, real-time validation,
+ * hints and the new-game action.
+ */
 public class SudokuController implements Initializable {
 
     private SudokuModel model = new SudokuModel();
@@ -19,6 +27,12 @@ public class SudokuController implements Initializable {
     @FXML
     private GridPane sudokuContainer;
 
+    /**
+     * Sets up the grid and starts the first game when the view loads.
+     *
+     * @param url            the FXML location (unused)
+     * @param resourceBundle the resources (unused)
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         createSudoku();
@@ -30,6 +44,7 @@ public class SudokuController implements Initializable {
 
     }
 
+    /** Builds the 6x6 grid of text fields and wires their input and border styling. */
     private void createSudoku() {
 
 
@@ -77,6 +92,10 @@ public class SudokuController implements Initializable {
         sudokuContainer.getStyleClass().add("sudoku-grid");
     }
 
+    /**
+     * Re-validates every editable cell, highlighting conflicts, and shows
+     * the win dialog when the board is completely solved.
+     */
     private void refreshBoardValidation() {
         int[][] board = model.getBoard();
 
@@ -125,6 +144,7 @@ public class SudokuController implements Initializable {
     }
 
 
+    /** Asks for confirmation and, if accepted, starts a new game. */
     @FXML
 
     public void newGame() {
@@ -150,6 +170,7 @@ public class SudokuController implements Initializable {
         });
     }
 
+    /** Refreshes every grid cell from the model, locking the clue cells. */
     public void updateBoard() {
 
         for (javafx.scene.Node node : sudokuContainer.getChildren()) {
@@ -179,6 +200,7 @@ public class SudokuController implements Initializable {
         }
     }
 
+    /** Reveals one hint cell, up to a maximum of three per game. */
     @FXML
     public void hint() {
         if (hintsUsed >= 3) {
@@ -222,6 +244,7 @@ public class SudokuController implements Initializable {
         }
     }
 
+    /** Makes every cell read-only, for example after the game is won. */
     private void freezeBoard() {
         for (javafx.scene.Node node : sudokuContainer.getChildren()) {
             if(node instanceof TextField) {
@@ -231,4 +254,3 @@ public class SudokuController implements Initializable {
     }
 
 }
-
