@@ -12,7 +12,7 @@
 
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sudoku6x6.controller.SudokuController">
    <children>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sudoku" textAlignment="CENTER" translateY="-25.0">
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title-text" text="Sudoku" textAlignment="CENTER" translateY="-25.0">
          <font>
             <Font name="Bell MT Bold" size="80.0" />
          </font>
@@ -38,16 +38,16 @@
             <RowConstraints maxHeight="-Infinity" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
         </rowConstraints>
       </GridPane>
-      <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0" translateY="60.0">
+      <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" translateY="60.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#hint" prefHeight="100.0" prefWidth="350.0" text="Pista">
-               <font>
-                  <Font size="40.0" />
-               </font></Button>
-            <Button mnemonicParsing="false" onAction="#newGame" prefHeight="100.0" prefWidth="350.0" text="Nueva Partida">
-               <font>
-                  <Font size="40.0" />
-               </font></Button>
+            <Button alignment="CENTER" layoutX="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#hint" prefHeight="100.0" prefWidth="300.0" styleClass="game-button, hint-button" text="Pista">
+               <HBox.margin>
+                  <Insets bottom="30.0" />
+               </HBox.margin></Button>
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#newGame" prefHeight="100.0" prefWidth="300.0" styleClass="game-button, new-game-button" text="Nueva Partida">
+               <HBox.margin>
+                  <Insets bottom="30.0" />
+               </HBox.margin></Button>
          </children>
       </HBox>
    </children>

@@ -42,3 +42,53 @@
     -fx-font-weight: bold;
     -fx-background-color: #80ebf4;
 }
+
+
+/* ===== Título ===== */
+.title-text {
+    -fx-fill: linear-gradient(to bottom, #1e47b8, #16358C);
+    -fx-effect: dropshadow(gaussian, rgba(22, 53, 140, 0.35), 8, 0, 0, 4);
+}
+
+
+
+.game-button {
+    -fx-text-fill: white;
+    -fx-font-size: 35px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-background-insets: 0;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 6, 0, 0, 3);
+}
+
+
+.hint-button {
+    -fx-background-color: #0fb5c4;
+}
+
+.hint-button:hover {
+    -fx-background-color: #17ccdd;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 9, 0, 0, 4);
+}
+
+.hint-button:pressed {
+    -fx-background-color: #0a8a96;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 3, 0, 0, 1);
+}
+
+/* Botón "Nueva Partida" (azul principal) */
+.new-game-button {
+    -fx-background-color: #16358C;
+}
+
+.new-game-button:hover {
+    -fx-background-color: #1e47b8;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 9, 0, 0, 4);
+}
+
+.new-game-button:pressed {
+    -fx-background-color: #0f2560;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 3, 0, 0, 1);
+}

@@ -5,25 +5,29 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class SudokuModel {
+public class SudokuModel implements SudokuLogic {
 
     private int[][] solution = new int[6][6];
     private int[][] board = new int[6][6];
 
+    @Override
     public void generateSolution() {
         solution = new int[6][6];
         createSolution(solution);
 
     }
 
+    @Override
     public int[][] getBoard() {
         return board;
     }
 
+    @Override
     public void updateBoardValue(int row, int column, int value) {
         board[row][column] = value;
     }
 
+    @Override
     public int[][] getSolution() {
         return solution;
     }
@@ -58,6 +62,7 @@ public class SudokuModel {
         return true;
     }
 
+    @Override
     public void cleanBoard() {
 
         board = new int[6][6];
@@ -65,6 +70,7 @@ public class SudokuModel {
     }
 
 
+    @Override
     public boolean isValid(int[][] sudoku, int row, int column, int num) {
 
         for (int c = 0; c < 6; c++) {
@@ -86,6 +92,7 @@ public class SudokuModel {
 
     }
 
+    @Override
     public void printBoard(int[][] board) {
         for (int row = 0; row < 6; row++) {
             for (int col = 0; col < 6; col++) {
@@ -95,6 +102,7 @@ public class SudokuModel {
         }
     }
 
+    @Override
     public void sudokuInitialNumbers() {
 
         for (int row = 0; row < 3; row++) {
@@ -120,6 +128,7 @@ public class SudokuModel {
 
     }
 
+    @Override
     public int[] getHint() {
         List<int[]> emptyCells = new ArrayList<>();
         for (int row = 0; row < 6; row++) {
@@ -140,6 +149,7 @@ public class SudokuModel {
         return hintCell;
     }
 
+    @Override
     public boolean hasWon() {
         for (int row = 0; row < 6; row++) {
             for (int col = 0; col < 6; col++) {
